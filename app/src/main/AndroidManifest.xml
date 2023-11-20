@@ -21,6 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".AboutUsActivity"/>
+        <activity android:name=".BrowseShopActivity"/>
+        <activity android:name=".ShoppingDetailsActivity"/>
+        <activity android:name=".ContactInfoActivity"/>
+        <activity android:name=".SubmissionActivity"/>
+        <activity android:name=".ConfirmationActivity"/>
+
     </application>
 
 </manifest>

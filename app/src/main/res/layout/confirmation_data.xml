@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/header"/>
+
+    <TextView
+        android:id="@+id/listOfItems"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Items to be delivered : "
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:textSize="25dp"
+        android:fontFamily="sans-serif-black"/>
+
+    <TextView
+        android:id="@+id/customerNameAndAddy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delivering to (Name) at the following Address (Addy)"
+        android:layout_below="@+id/listOfItems"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="25dp"
+        android:fontFamily="sans-serif-black"
+        android:padding="10dp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Willing to pay ($x) for delivery"
+        android:layout_below="@+id/customerNameAndAddy"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="25dp"
+        android:fontFamily="sans-serif-black"
+        android:padding="10dp"
+        android:textAlignment="center"/>
+
+    <Button
+        android:id="@+id/submitBtn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/price"
+        android:text="Submit"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:layout_alignRight="@+id/header_title"
+        android:layout_marginTop="200dp"
+        android:layout_marginRight="10dp"
+        android:backgroundTint="#FB1C1C"/>
+
+    <Button
+        android:id="@+id/goBackBtn2"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/price"
+        android:layout_alignRight="@+id/customerBtn3"
+        android:text="Go Back"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="10dp"
+        android:backgroundTint="#FFEB3B"/>
+
+</RelativeLayout>

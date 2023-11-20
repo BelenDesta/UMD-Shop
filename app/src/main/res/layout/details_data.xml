@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <include layout="@layout/header"/>
+
+    <TextView
+        android:id="@+id/categoryText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Category"
+        android:layout_below="@id/header_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:fontFamily="sans-serif-black"/>
+
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/categoryText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="#A0EBF4"
+        android:padding="5dp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/itemText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Items Name"
+        android:layout_below="@id/categorySpinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:fontFamily="sans-serif-black"/>
+
+    <EditText
+        android:id="@+id/itemName"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/itemText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="#A0EBF4"
+        android:padding="5dp" />
+
+    <TextView
+        android:id="@+id/detailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Items Details"
+        android:layout_below="@id/itemName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:fontFamily="sans-serif-black"/>
+
+    <EditText
+        android:id="@+id/detailName"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detailText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="#A0EBF4"
+        android:padding="5dp" />
+
+    <TextView
+        android:id="@+id/relevanceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Relevance"
+        android:layout_below="@id/detailName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:fontFamily="sans-serif-black"/>
+
+    <RadioGroup
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/relevanceText"
+        android:orientation="vertical"
+        android:id="@+id/radiogroup"
+        >
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cheapest"
+            android:text="Cheapest" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Highest"
+            android:text="Highest Quality" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fast"
+            android:text="Fastest Delivery"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/continueBtn2"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radiogroup"
+        android:text="Continue"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:layout_alignRight="@+id/header_title"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="10dp"
+        android:backgroundTint="#FFEB3B"/>
+
+</RelativeLayout>
