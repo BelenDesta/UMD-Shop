@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -23,11 +24,18 @@
         </activity>
 
         <activity android:name=".AboutUsActivity"/>
+        <activity android:name=".AcceptingActivity"/>
+        <activity android:name=".BecomeShopperActivity"/>
         <activity android:name=".BrowseShopActivity"/>
-        <activity android:name=".ShoppingDetailsActivity"/>
-        <activity android:name=".ContactInfoActivity"/>
-        <activity android:name=".SubmissionActivity"/>
         <activity android:name=".ConfirmationActivity"/>
+        <activity android:name=".ContactInfoActivity"/>
+        <activity android:name =".EmailConfirmationActivity"/>
+        <activity android:name=".QueueActivity"/>
+        <activity android:name=".ShoppingDetailsActivity"/>
+        <activity android:name=".SignUpActivity"/>
+        <activity android:name=".SubmissionActivity"/>
+
+
 
     </application>
 

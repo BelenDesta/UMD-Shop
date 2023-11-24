@@ -4,6 +4,10 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
+    <style name="recBox" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/rectanglebox</item>
+
+    </style>
 
     <style name="Theme.TerpShop" parent="Base.Theme.TerpShop" />
 </resources>

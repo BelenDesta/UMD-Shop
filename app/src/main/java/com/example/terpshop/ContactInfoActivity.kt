@@ -2,7 +2,6 @@ package com.example.terpshop
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.ContactsContract.DisplayPhoto
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -15,6 +14,7 @@ class ContactInfoActivity : AppCompatActivity() {
     lateinit var name : EditText
     lateinit var address : EditText
     private lateinit var phone : EditText
+    private lateinit var email : EditText
     private lateinit var offer : EditText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +26,7 @@ class ContactInfoActivity : AppCompatActivity() {
         name = findViewById(R.id.nameInfo)
         address = findViewById(R.id.addressInfo)
         phone = findViewById(R.id.phoneInfo)
+        email = findViewById(R.id.emailInfo)
         offer = findViewById(R.id.offerInfo)
 
         val items = intent.getStringExtra("itemName")
@@ -38,12 +39,15 @@ class ContactInfoActivity : AppCompatActivity() {
         continueBtn3.setOnClickListener {
             Log.w("Test", "name is ${name.text}")
             Log.w("Test", "add is ${address.text}")
+            Log.w("Test", "email is ${email.text}")
             if (name.text.isEmpty()) {
                 showToast("Please enter your name")
             } else if (address.text.isEmpty()) {
                 showToast("Please enter your address")
             } else if (phone.text.isEmpty()) {
                 showToast("Please enter your phone number")
+            } else if(email.text.isEmpty()){
+                showToast("Please enter your email")
             } else if (offer.text.isEmpty()) {
                 showToast("Please enter your offer details")
             } else {
@@ -51,6 +55,9 @@ class ContactInfoActivity : AppCompatActivity() {
                 val intent = Intent(this, ConfirmationActivity::class.java)
                 intent.putExtra("name", name.text.toString())
                 intent.putExtra("address", address.text.toString())
+                intent.putExtra("phone", phone.text.toString())
+                intent.putExtra("email", email.text.toString())
+                intent.putExtra("offer", offer.text.toString())
                 intent.putExtra("itemName", items)
                 startActivity(intent)
             }

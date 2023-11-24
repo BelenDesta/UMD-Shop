@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign up"
+        android:layout_marginTop="70dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="50sp"
+        android:fontFamily="sans-serif-black"/>
+
+    <TextView
+        android:id="@+id/member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already a member?"
+        android:layout_below="@id/signup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/signL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log in"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:textColor="#ADD8E6"
+        android:onClick="onRegisterNowClicked"
+        android:layout_below="@id/signup"
+        android:layout_toRightOf="@id/member"
+        android:layout_marginTop="25dp"
+        android:textSize="18sp"/>
+    <TextView
+        android:id="@+id/fullname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/member"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:text="Full Name"
+        android:textSize="18dp" />
+
+    <EditText
+        android:id="@+id/fullnameSignup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint ="Herve Franceschi"
+        android:layout_below="@+id/fullname"
+        android:inputType="textPersonName"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="50dp"/>
+
+    <TextView
+        android:id="@+id/emails"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Email Address"
+        android:textSize="18dp"
+        android:layout_below="@+id/fullnameSignup"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"/>
+
+    <EditText
+        android:id="@+id/emailSignup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint ="hfrances@umd.edu"
+        android:inputType="textEmailAddress"
+        android:layout_below="@+id/emails"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="50dp"/>
+
+    <TextView
+        android:id="@+id/passwordS"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/emailSignup"
+        android:layout_marginLeft="50dp"/>
+
+    <EditText
+        android:id="@+id/passwordSignup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint ="Password"
+        android:inputType="textPassword"
+        android:layout_below="@+id/passwordS"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="50dp"/>
+
+    <TextView
+        android:id="@+id/confipasswordS"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Confirm Password"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/passwordSignup"
+        android:layout_marginLeft="50dp"/>
+
+    <EditText
+        android:id="@+id/confipasswordSignup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint ="Confirm Password"
+        android:inputType="textPassword"
+        android:layout_below="@+id/confipasswordS"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="50dp"/>
+
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:backgroundTint="#F08F4967"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/confipasswordSignup"
+        android:layout_marginTop="40dp"
+        android:textSize="30dp"/>
+
+
+
+
+
+</RelativeLayout>

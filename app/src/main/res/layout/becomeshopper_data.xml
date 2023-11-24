@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+   <TextView
+       android:id="@+id/loginInfo"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text = "Log in"
+       android:layout_marginTop="150dp"
+       android:layout_marginLeft="40dp"
+       android:textSize="50dp"
+       android:fontFamily="sans-serif-black"/>
+
+ <com.google.android.material.textfield.TextInputLayout
+     android:id="@+id/emaInfoBox"
+     android:layout_width="320dp"
+     android:layout_height="wrap_content"
+     android:hint="hfrances@umd.edu"
+     android:layout_below="@id/loginInfo"
+     android:layout_marginTop="15dp"
+     android:layout_marginStart="30dp">
+
+  <com.google.android.material.textfield.TextInputEditText
+      android:id="@+id/emaInfo"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:inputType="textEmailAddress"
+      android:ems="15"/>
+
+ </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordBox"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter password"
+        app:passwordToggleEnabled="true"
+        android:layout_below="@id/emaInfoBox"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="30dp">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/passwordInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="15"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/loginn"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="Log in"
+        android:backgroundTint="#F08F4967"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/passwordBox"
+        android:layout_marginTop="40dp"/>
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Don't have a TerpShop account?"
+        android:textSize="18dp"
+        android:layout_below="@id/loginn"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"/>
+    <TextView
+        android:id="@+id/signupInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register Now"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:onClick="onRegisterNowClicked"
+        android:layout_below="@id/loginn"
+        android:layout_marginLeft="280dp"
+        android:layout_marginTop="25dp"/>
+
+
+</RelativeLayout>

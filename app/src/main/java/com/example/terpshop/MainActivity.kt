@@ -27,6 +27,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // DO THE SAME SET_ON_CLICK_LISTENER FOR SHOPPER BUTTON
+        becomeAShopper.setOnClickListener {
+            val intent = Intent(this, BecomeShopperActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

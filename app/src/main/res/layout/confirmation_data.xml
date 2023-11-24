@@ -19,7 +19,8 @@
         android:id="@+id/customerNameAndAddy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delivering to (Name) at the following Address (Addy)"
+        android:text="Delivering to: (Name) \n
+         At the following Address : (Addy)"
         android:layout_below="@+id/listOfItems"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
