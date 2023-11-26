@@ -50,6 +50,7 @@ class ConfirmationActivity: AppCompatActivity() {
 
         tv1.text = "Items to be delivered : $items"
         tv2.text = "Delivering to $customerName at the following Address : $customerAddress"
+        tv3.text = "Willing to pay $customerOffer for delivery"
         // update the price accordingly
 
         goback.setOnClickListener {

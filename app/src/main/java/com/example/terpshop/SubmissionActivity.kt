@@ -25,7 +25,7 @@ class SubmissionActivity: AppCompatActivity() {
 
         home.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            db.insertData(customerName, customerAddress, customerOffer)
+            db.insertData(customerName, customerAddress, customerOffer, items, customerEmail, customerPhone)
             startActivity(intent)
         }
     }

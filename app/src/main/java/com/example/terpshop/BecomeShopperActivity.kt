@@ -36,7 +36,9 @@ class BecomeShopperActivity : AppCompatActivity() {
             } else if (password.text.isEmpty()) {
                 showToast("Please enter your Password")
             }else if(database.checkValid(emailaddress.text.toString(), password.text.toString())) {
+                val fullname = database.getfullname(emailaddress.text.toString(), password.text.toString())
                 val intent = Intent(applicationContext, QueueActivity::class.java)
+                intent.putExtra("fullname", fullname)
                 startActivity(intent)
             }
             else{

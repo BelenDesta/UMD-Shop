@@ -24,11 +24,13 @@
         </activity>
 
         <activity android:name=".AboutUsActivity"/>
+        <activity android:name=".AcceptedActivity"/>
         <activity android:name=".AcceptingActivity"/>
         <activity android:name=".BecomeShopperActivity"/>
         <activity android:name=".BrowseShopActivity"/>
         <activity android:name=".ConfirmationActivity"/>
         <activity android:name=".ContactInfoActivity"/>
+        <activity android:name =".DeliveredActivity"/>
         <activity android:name =".EmailConfirmationActivity"/>
         <activity android:name=".QueueActivity"/>
         <activity android:name=".ShoppingDetailsActivity"/>

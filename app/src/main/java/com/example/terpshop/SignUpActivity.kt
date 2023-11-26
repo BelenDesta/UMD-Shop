@@ -42,7 +42,7 @@ class SignUpActivity: AppCompatActivity() {
                 showToast("Please enter your Confirm Password")
             } else if(password.text.toString() != confiPassword.text.toString()){
                 showToast("Mismatched Confirm Password")
-            } else if(database.insertUser(emailaddress.text.toString(), password.text.toString())){
+            } else if(database.insertUser(emailaddress.text.toString(), password.text.toString(), fullname.text.toString())){
                 Toast.makeText(applicationContext, "SignUp successful!, please login again", Toast.LENGTH_SHORT).show()
 
                 val intent = Intent(applicationContext, BecomeShopperActivity::class.java)
