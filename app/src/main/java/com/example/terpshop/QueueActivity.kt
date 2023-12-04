@@ -12,15 +12,35 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import java.io.Serializable
 
 
 class QueueActivity : AppCompatActivity() {
     private lateinit var db: QueueDB
     private lateinit var tv: TextView
+
+    private var ad : InterstitialAd? = null
+
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.queue_data)
+
+
+
+        var adUnitId : String = "ca-app-pub-3940256099942544/1033173712"
+        var adRequest : AdRequest = (AdRequest.Builder( )).build( )
+        var adLoad : AdLoad = AdLoad( )
+        InterstitialAd.load( this, adUnitId, adRequest, adLoad )
+
+
 
         db = QueueDB(this)
 
@@ -77,6 +97,8 @@ class QueueActivity : AppCompatActivity() {
        tableLayout.addView(homeButtonRow)
     }
 
+
+
     private fun addRow(stringArr: List<String>, tableLayout: TableLayout, fullname: String){
 
         for(i in stringArr.indices){
@@ -117,13 +139,15 @@ class QueueActivity : AppCompatActivity() {
                 val email = db.getEmail(name, address, offer)
                 val phone = db.getPhone(name, address, offer)
 
-                Log.w("email is" , "items: $items,  email: $email,  phone: $phone")
+                Log.w("MainAct" , "Items: $items $email $phone")
 
                 val intent = Intent(this, AcceptingActivity::class.java)
                 intent.putExtra("name", customerName)
                 intent.putExtra("address", customerAddress)
                 intent.putExtra("offer", customerOffer)
-                intent.putExtra("item", items)
+                intent.putExtra("FullList", items as Serializable)
+
+                Log.w("MainActi" , "ARE THE ITEMS HERE?: $items")
                 intent.putExtra("email", email)
                 intent.putExtra("phone", phone)
                 intent.putExtra("fullname", fullname)
@@ -131,6 +155,51 @@ class QueueActivity : AppCompatActivity() {
             }
             tableRow.addView(accept)
             tableLayout.addView(tableRow)
+        }
+    }
+
+
+    inner class AdLoad : InterstitialAdLoadCallback( ) {
+        override fun onAdFailedToLoad(p0: LoadAdError) {
+            super.onAdFailedToLoad(p0)
+            Log.w( "MainActivity", "ad failed to load" )
+        }
+
+        override fun onAdLoaded(p0: InterstitialAd) {
+            super.onAdLoaded(p0)
+            Log.w( "MainActivity", "ad loaded" )
+            ad = p0
+            ad!!.show( this@QueueActivity )
+
+            var manageAd  = ManageAdShowing()
+            ad!!.fullScreenContentCallback = manageAd
+        }
+    }
+
+    inner class ManageAdShowing : FullScreenContentCallback( ) {
+        override fun onAdDismissedFullScreenContent() {
+            super.onAdDismissedFullScreenContent()
+            Log.w( "MainActivity", "user closed the ad" )
+        }
+
+        override fun onAdClicked() {
+            super.onAdClicked()
+            Log.w( "MainActivity", "User clicked on the ad" )
+        }
+
+        override fun onAdImpression() {
+            super.onAdImpression()
+            Log.w( "MainActivity", "user has seen the ad" )
+        }
+
+        override fun onAdShowedFullScreenContent() {
+            super.onAdShowedFullScreenContent()
+            Log.w( "MainActivity", "ad has been shown" )
+        }
+
+        override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+            super.onAdFailedToShowFullScreenContent(p0)
+            Log.w( "MainActivity", "ad failed to show" )
         }
     }
 }

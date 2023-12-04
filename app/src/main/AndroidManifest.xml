@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TerpShop"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -27,6 +35,8 @@
         <activity android:name=".AcceptedActivity"/>
         <activity android:name=".AcceptingActivity"/>
         <activity android:name=".BecomeShopperActivity"/>
+        <activity android:name =".BecomeUserActvity"/>
+
         <activity android:name=".BrowseShopActivity"/>
         <activity android:name=".ConfirmationActivity"/>
         <activity android:name=".ContactInfoActivity"/>
@@ -35,8 +45,16 @@
         <activity android:name=".QueueActivity"/>
         <activity android:name=".ShoppingDetailsActivity"/>
         <activity android:name=".SignUpActivity"/>
+        <activity android:name=".SignUpActivityUser"/>
         <activity android:name=".SubmissionActivity"/>
+        <activity android:name=".RatingActivity" />
+        <activity android:name=".DisplayRatingsActivity" />
 
+
+
+
+
+        <activity android:name="com.google.android.gms.ads.AdActivity" />
 
 
     </application>

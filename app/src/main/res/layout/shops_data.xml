@@ -5,14 +5,39 @@
 
     <include layout="@layout/header"/>
 
+    <Button
+        android:id="@+id/Logout"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/continueBtn1"
+        android:layout_marginTop="120dp"
+        android:layout_alignLeft="@+id/welcometext"
+        android:layout_marginLeft="122dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="Logout"
+        android:textColor="@color/red"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/welcometext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome"
+        android:layout_below="@id/header_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:textSize="25dp"
+        android:fontFamily="sans-serif-black"/>
+
     <TextView
         android:id="@+id/browseText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Browse all available shops"
-        android:layout_below="@id/header_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
+        android:layout_below="@id/welcometext"
         android:textSize="25dp"
         android:fontFamily="sans-serif-black"/>
 
@@ -22,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/browseText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="90dp"
         android:background="#A0EBF4"
         android:padding="5dp"
         android:textAlignment="center"/>
@@ -34,11 +59,24 @@
         android:layout_below="@+id/shopSpinner"
         android:text="Continue"
         android:textStyle="bold"
-        android:textSize="15dp"
+        android:textSize="20dp"
+        android:layout_marginTop="30dp"
         android:textColor="#000000"
         android:layout_alignRight="@+id/header_title"
-        android:layout_marginTop="200dp"
-        android:layout_marginRight="10dp"
+       android:layout_marginRight="10dp"
         android:backgroundTint="#FFEB3B"/>
+
+
+    <Button
+        android:id="@+id/rateExperienceBtn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shopSpinner"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#FFEB3B"
+        android:text="Rate Us"
+        android:textColor="@color/blue"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

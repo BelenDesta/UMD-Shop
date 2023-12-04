@@ -1,0 +1,64 @@
+<!-- activity_display_ratings.xml -->
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <include layout="@layout/header"/>
+
+
+
+    <TextView
+        android:id="@+id/reviewsTitleTextView"
+        android:layout_width="194dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header1"
+        android:layout_marginLeft="100dp"
+
+        android:layout_marginTop="160dp"
+        android:text="YOUR REVIEWS"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+
+
+
+    <TextView
+        android:id="@+id/savedRatingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saved Rating:"
+        android:textSize = "25dp"
+        android:textStyle="bold"
+        android:layout_below="@id/reviewsTitleTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp" />
+
+
+
+
+
+    <TextView
+        android:id="@+id/savedReviewTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saved Review:"
+        android:textSize = "25dp"
+        android:textStyle="bold"
+
+        android:layout_below="@id/savedRatingTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+    <Button
+        android:id="@+id/backToHomePageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/savedReviewTextView"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="65dp"
+        android:backgroundTint="#F08F4967"
+        android:onClick="onBackToHomePageButtonClick"
+        android:text="Home" />
+</RelativeLayout>
