@@ -48,9 +48,8 @@ class ConfirmationActivity: AppCompatActivity() {
         val items = intent.getStringArrayListExtra("itemNames")
 
         tv1.text = " $items"
-        tv2.text = "Delivering to $customerName at the following Address : $customerAddress"
-        tv3.text = "Willing to pay $customerOffer for delivery"
-        // update the price accordingly
+        tv2.text = "Name: $customerName \n Address : $customerAddress"
+        tv3.text = "Delivery Fee: $customerOffer "
 
         goback.setOnClickListener {
             val intent = Intent(this, ContactInfoActivity::class.java)

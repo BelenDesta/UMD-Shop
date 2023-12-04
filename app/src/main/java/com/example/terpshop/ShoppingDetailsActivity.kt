@@ -3,6 +3,7 @@ package com.example.terpshop
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
@@ -14,6 +15,7 @@ import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import java.io.Serializable
 
@@ -30,9 +32,12 @@ class ShoppingDetailsActivity : AppCompatActivity() {
     val full_List_of_items = ArrayList<ItemData>()
 
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.details_data)
+
+
 
         tvAddedItems = findViewById(R.id.tvAddedItems)
         tvAddedItems.text = "Added Items:"
@@ -61,6 +66,13 @@ class ShoppingDetailsActivity : AppCompatActivity() {
             addedItemsList.clear()
             addedItemsList.addAll(addedItemsFromIntent)
             updateAddedItemsTextView()
+        }
+
+
+        val fullListFromIntent = intent.getSerializableExtra("FullList", ArrayList::class.java) as? ArrayList<ItemData>
+        if (fullListFromIntent != null) {
+            full_List_of_items.clear()
+            full_List_of_items.addAll(fullListFromIntent)
         }
 
 
@@ -207,6 +219,7 @@ class ShoppingDetailsActivity : AppCompatActivity() {
 
     private fun clearCart() {
         addedItemsList.clear()
+        full_List_of_items.clear()
         updateAddedItemsTextView()
     }
 }
