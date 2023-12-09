@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- res/layout/activity_add_item.xml -->
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
 
     <include layout="@layout/header"/>
 
@@ -18,7 +21,7 @@
         android:fontFamily="sans-serif-black"/>
 
     <Spinner
-        android:id="@+id/categorySpinner"
+        android:id="@+id/spinner_category"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/categoryText"
@@ -33,14 +36,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Items Name"
-        android:layout_below="@id/categorySpinner"
+        android:layout_below="@id/spinner_category"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:textSize="20dp"
         android:fontFamily="sans-serif-black"/>
 
+
     <EditText
-        android:id="@+id/itemName"
+        android:id="@+id/edit_text_item_name"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/itemText"
@@ -54,14 +58,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Items Details"
-        android:layout_below="@id/itemName"
+        android:layout_below="@id/edit_text_item_name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:textSize="20dp"
         android:fontFamily="sans-serif-black"/>
 
+
     <EditText
-        android:id="@+id/detailName"
+        android:id="@+id/edit_text_item_details"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/detailText"
@@ -70,54 +75,101 @@
         android:background="#A0EBF4"
         android:padding="5dp" />
 
+
     <TextView
         android:id="@+id/relevanceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Relevance"
-        android:layout_below="@id/detailName"
+        android:layout_below="@id/edit_text_item_details"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:textSize="20dp"
         android:fontFamily="sans-serif-black"/>
 
+
+    <!-- Relevance Radio Buttons -->
     <RadioGroup
-        android:layout_height="wrap_content"
+        android:id="@+id/radio_group_relevance"
+        android:layout_below="@id/relevanceText"
         android:layout_width="match_parent"
-        android:layout_below="@+id/relevanceText"
-        android:orientation="vertical"
-        android:id="@+id/radiogroup"
-        >
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cheapest"
-            android:text="Cheapest" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <RadioButton
+            android:id="@+id/radio_cheapest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/Highest"
-            android:text="Highest Quality" />
+            android:text="Cheapest"/>
+
         <RadioButton
+            android:id="@+id/radio_high_quality"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fast"
-            android:text="Fastest Delivery"/>
+            android:text="High Quality"/>
+
+        <RadioButton
+            android:id="@+id/radio_most_expensive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Most Expensive"/>
     </RadioGroup>
+
+    <!-- Add Item Button -->
+    <Button
+        android:id="@+id/btn_add_item"
+        android:layout_below="@id/radio_group_relevance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text = "Add Item"
+        android:textSize = "20dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="#000000"
+        android:layout_alignLeft="@+id/header_title"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/orange" />
+
+
+    <TextView
+        android:id="@+id/tvAddedItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/continueBtn2"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:paddingTop="16dp"
+        android:text="Added Items(Cart):"
+        android:textSize="16dp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/continueBtn2"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/radiogroup"
-        android:text="Continue"
-        android:textStyle="bold"
-        android:textSize="15dp"
-        android:textColor="#000000"
+        android:layout_below="@+id/radio_group_relevance"
         android:layout_alignRight="@+id/header_title"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:backgroundTint="#FFEB3B"/>
+        android:backgroundTint="#FFEB3B"
+        android:text="Continue"
+        android:textColor="#000000"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/clearCartBtn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radio_group_relevance"
+        android:layout_alignRight="@+id/header_title"
+        android:layout_marginTop="120dp"
+        android:layout_marginRight="10dp"
+        android:backgroundTint="@color/black"
+        android:text="EMPTY CART"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
 
 </RelativeLayout>

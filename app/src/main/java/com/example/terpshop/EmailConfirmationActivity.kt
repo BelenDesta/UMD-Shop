@@ -13,6 +13,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import android.os.Handler
+import java.io.Serializable
 import java.util.Base64
 
 class EmailConfirmationActivity: AppCompatActivity() {
@@ -24,8 +25,8 @@ class EmailConfirmationActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.emailconfirmation_data)
 
-       val items = intent.getStringExtra("itemName")!!
-       val customerName = intent.getStringExtra("name")!!
+
+        val customerName = intent.getStringExtra("name")!!
        val customerAddress = intent.getStringExtra("address")!!
        val customerPhone = intent.getStringExtra("phone")!!
        val customerEmail = intent.getStringExtra("email")!!
@@ -37,14 +38,20 @@ class EmailConfirmationActivity: AppCompatActivity() {
 
         val imageBytes = this@EmailConfirmationActivity.resources.openRawResource(R.drawable.headerimg).readBytes()
 
-        val base64Image = Base64.getEncoder().encodeToString(imageBytes)
 
-        val emailContentHtml =
+        val fullList = intent.getSerializableExtra("FullList", ArrayList::class.java) as? ArrayList<ItemData?>
+
+
+
+        Log.w("MainActivity", "LISTS3" + fullList)
+
+        val base64Image = Base64.getEncoder().encodeToString(imageBytes)
+        var emailContentHtml =
             "<html><body style='font-family: Arial, sans-serif;'>" +
                     "<div style='text-align: center;'>" +
                     "<img src='data:image/png;base64,$base64Image' alt='Header' style='max-width: 100%; height: auto;'>" +
                     "</div>" +
-                    "<div  padding: 10px; margin: 20px;'>" +
+                    "<div style='padding: 10px; margin: 20px;'>" +
                     "<p style='font-size: 16px; font-weight: bold; text-align: center;'>" +
                     "Thank you for your order!</p>" +
                     "</div>" +
@@ -53,12 +60,24 @@ class EmailConfirmationActivity: AppCompatActivity() {
                     "<p><strong> Phone:</strong> $customerPhone</p>" +
                     "<p><strong> Email Address:</strong> $customerEmail</p>" +
                     "<p><strong> Delivery Offer:</strong> $customerOffer</p>" +
-                    "<p><strong> Item Detail:</strong> $items</p>" +
-                    "</div>" +
-                    "</body></html>"
+                    "<p><strong> Item Details:</strong></p>" +
+                    "<ul>"
+
+// Iterate over the items array and add each value to the list
+// Iterate over the items array and add each value to the list
+        for (item in fullList.orEmpty()) {
+            emailContentHtml += "<li><strong>Name:</strong> ${item!!.name}, " +
+                    "<strong>Category:</strong> ${item!!.category}, " +
+                    Log.w("MainActivity", "CATA" + item.category)
+            "<strong>Details:</strong> ${item!!.details}, " +
+                    Log.w("MainActivity", "DETAILS" + item.details)
+
+            "<strong>Relevance:</strong> ${item!!.relevance}</li>"
+        }
 
 
-        emailConfirmation = EmailConfirmation(this, customerName, customerAddress, customerPhone, customerEmail, customerOffer, items, emailSubject, emailContentHtml)
+
+        emailConfirmation = EmailConfirmation(this, customerName, customerAddress, customerPhone, customerEmail, customerOffer, fullList!!, emailSubject, emailContentHtml)
 
         GlobalScope.launch(Dispatchers.IO) {
 
@@ -80,7 +99,9 @@ class EmailConfirmationActivity: AppCompatActivity() {
                         intent.putExtra("phone", customerPhone)
                         intent.putExtra("email", customerEmail)
                         intent.putExtra("offer", customerOffer)
-                        intent.putExtra("itemName", items)
+                        intent.putExtra("FullList", fullList as Serializable)
+
+
                         startActivity(intent)
                     }, delayTimeMilliSec)
                 }
@@ -97,3 +118,5 @@ class EmailConfirmationActivity: AppCompatActivity() {
         }
     }
 }
+
+

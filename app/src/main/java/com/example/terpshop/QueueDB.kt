@@ -5,6 +5,8 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import org.json.JSONArray
+import org.json.JSONObject
 
 class QueueDB(context: Context): SQLiteOpenHelper(context, "queueData", null, 1) {
 
@@ -17,21 +19,43 @@ class QueueDB(context: Context): SQLiteOpenHelper(context, "queueData", null, 1)
         db?.execSQL("drop table if exists Queuedata")
         onCreate(db)
     }
-    fun insertData(name: String, address: String, offer: String, item: String, email: String, phone: String): Boolean {
-        val contVal = ContentValues().apply {
+
+    fun insertData(
+        name: String,
+        address: String,
+        offer: String,
+        items: ArrayList<ItemData>,
+        email: String,
+        phone: String
+    ): Boolean {
+        val itemsJsonArray = JSONArray()
+        for (item in items) {
+            val itemJson = JSONObject().apply {
+                put("name", item.name)
+                put("category", item.category)
+                put("details", item.details)
+                put("relevance", item.relevance)
+            }
+            itemsJsonArray.put(itemJson)
+        }
+
+        val contentValues = ContentValues().apply {
             put("name", name)
             put("address", address)
             put("offer", offer)
-            put("item", item)
+            put("item", itemsJsonArray.toString())
             put("email", email)
             put("phone", phone)
         }
-        val inpt = db.insert("Queuedata", null, contVal)
-        return inpt != -1L
+
+        val insertedRowId = db.insert("Queuedata", null, contentValues)
+        return insertedRowId != -1L
     }
+
+
     fun getElements(): List<String> {
 
-        val stringArr= mutableListOf<String>()
+        val stringArr = mutableListOf<String>()
 
         val inpt = db.rawQuery("SELECT * FROM Queuedata", null)
         try {
@@ -49,27 +73,36 @@ class QueueDB(context: Context): SQLiteOpenHelper(context, "queueData", null, 1)
                     stringArr.add(elements)
                 } while (inpt.moveToNext())
             }
-        }catch(e: Exception) {
+        } catch (e: Exception) {
             e.printStackTrace()
-        }finally{
+        } finally {
             inpt.close()
         }
-    return stringArr
+        return stringArr
     }
+
     fun deleteData(name: String, address: String, offer: String) {
         writableDatabase.use { db ->
-            db.delete("Queuedata", "name=? AND address=? AND offer=?", arrayOf(name, address, offer))
+            db.delete(
+                "Queuedata",
+                "name=? AND address=? AND offer=?",
+                arrayOf(name, address, offer)
+            )
         }
     }
+
     fun getEmail(name: String, address: String, offer: String): String? {
         var email: String? = null
 
-        val inpt = db.rawQuery("SELECT * FROM Queuedata WHERE name=? AND address=? AND offer=?", arrayOf(name, address, offer))
+        val inpt = db.rawQuery(
+            "SELECT * FROM Queuedata WHERE name=? AND address=? AND offer=?",
+            arrayOf(name, address, offer)
+        )
         try {
             if (inpt.moveToFirst()) {
                 val emailInx = inpt.getColumnIndex("email")
                 email = inpt.getString(emailInx)
-                Log.w("email is: " , "email chekc this: $email")
+                Log.w("email is: ", "email chekc this: $email")
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -83,7 +116,10 @@ class QueueDB(context: Context): SQLiteOpenHelper(context, "queueData", null, 1)
     fun getPhone(name: String, address: String, offer: String): String? {
         var phone: String? = null
 
-        val inpt = db.rawQuery("SELECT * FROM Queuedata WHERE name=? AND address=? AND offer=?", arrayOf(name, address, offer))
+        val inpt = db.rawQuery(
+            "SELECT * FROM Queuedata WHERE name=? AND address=? AND offer=?",
+            arrayOf(name, address, offer)
+        )
         try {
             if (inpt.moveToFirst()) {
                 val phoneInx = inpt.getColumnIndex("phone")
@@ -97,15 +133,32 @@ class QueueDB(context: Context): SQLiteOpenHelper(context, "queueData", null, 1)
 
         return phone
     }
+    fun getItem(name: String, address: String, offer: String): ArrayList<ItemData?> {
+        val itemList = mutableListOf<ItemData?>()
 
-    fun getItem(name: String, address: String, offer: String): String? {
-        var item: String? = null
-
-        val inpt = db.rawQuery("SELECT * FROM Queuedata WHERE name=? AND address=? AND offer=?", arrayOf(name, address, offer))
+        val inpt = db.rawQuery(
+            "SELECT * FROM Queuedata WHERE name=? AND address=? AND offer=?",
+            arrayOf(name, address, offer)
+        )
         try {
             if (inpt.moveToFirst()) {
                 val itemInx = inpt.getColumnIndex("item")
-                item = inpt.getString(itemInx)
+                val itemsJson = inpt.getString(itemInx)
+
+                val jsonArray = JSONArray(itemsJson)
+
+                // Iterate over the JSON array and create ItemData objects
+                for (i in 0 until jsonArray.length()) {
+                    val itemObject = jsonArray.getJSONObject(i)
+                    val itemName = itemObject.getString("name")
+                    val itemCategory = itemObject.getString("category")
+                    val itemDetails = itemObject.getString("details")
+                    val itemRelevance = itemObject.getString("relevance")
+
+                    // Create ItemData object and add it to the list
+                    val itemData = ItemData(itemName, itemCategory, itemDetails, itemRelevance)
+                    itemList.add(itemData)
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -113,6 +166,7 @@ class QueueDB(context: Context): SQLiteOpenHelper(context, "queueData", null, 1)
             inpt.close()
         }
 
-        return item
+        return ArrayList(itemList)
     }
+
 }

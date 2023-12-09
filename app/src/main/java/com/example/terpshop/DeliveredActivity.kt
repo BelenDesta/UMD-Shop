@@ -28,14 +28,18 @@ class DeliveredActivity: AppCompatActivity() {
         home = findViewById(R.id.homeB)
         db = QueueDB(this)
 
-        val items = intent.getStringExtra("item")!!
+        val items = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("FullList", ArrayList::class.java) as? ArrayList<ItemData>
+        } else {
+            TODO("VERSION.SDK_INT < TIRAMISU")
+        }
         val customerName = intent.getStringExtra("name")!!
         val customerAddress = intent.getStringExtra("address")!!
         val customerPhone = intent.getStringExtra("phone")!!
         val customerEmail = intent.getStringExtra("email")!!
         val customerOffer = intent.getStringExtra("offer")!!
-        val customerItem = intent.getStringExtra("item")!!
         val driverFullname = intent.getStringExtra("fullname")!!
+
 
         val nameArr = customerName.split(": ")
         val name = nameArr[1]
@@ -53,7 +57,7 @@ class DeliveredActivity: AppCompatActivity() {
 
         val base64Image = Base64.getEncoder().encodeToString(imageBytes)
 
-        val emailContentHtml =
+        var emailContentHtml =
             "<html><body style='font-family: Arial, sans-serif;'>" +
                     "<div style='text-align: center;'>" +
                     "<img src='data:image/png;base64,$base64Image' alt='Header' style='max-width: 100%; height: auto;'>" +
@@ -69,13 +73,22 @@ class DeliveredActivity: AppCompatActivity() {
                     "<p><strong> Phone:</strong> $customerPhone</p>" +
                     "<p><strong> Email Address:</strong> $customerEmail</p>" +
                     "<p><strong> Delivery Offer:</strong> $customerOffer</p>" +
-                    "<p><strong> Item Detail:</strong> $items</p>" +
-                    "</div>" +
-                    "<p>Thank you for shopping with TerpShop! Please rate your experience in the TerpShop app.</p>" +
-                    "</body></html>"
+                    "<p><strong> Item Details:</strong></p>" +
+                    "<ul>"
 
+// Iterate over the items array and add each value to the list
+// Iterate over the items array and add each value to the list
+        for (item in items.orEmpty()) {
+            emailContentHtml += "<li><strong>Name:</strong> ${item!!.name}, " +
+                    "<strong>Category:</strong> ${item!!.category}, " +
+                    Log.w("MainActivity", "CATA" + item.category)
+            "<strong>Details:</strong> ${item!!.details}, " +
+                    Log.w("MainActivity", "DETAILS" + item.details)
 
-        emailConfirmation = EmailConfirmation(this, customerName, customerAddress, customerPhone, customerEmail, customerOffer, items, emailSubject, emailContentHtml)
+            "<strong>Relevance:</strong> ${item!!.relevance}</li>"
+        }
+
+        emailConfirmation = EmailConfirmation(this, customerName, customerAddress, customerPhone, customerEmail, customerOffer,     items as ArrayList<ItemData?>, emailSubject, emailContentHtml)
 
         GlobalScope.launch(Dispatchers.IO) {
 
@@ -86,6 +99,7 @@ class DeliveredActivity: AppCompatActivity() {
             }
         }
         Log.w("name", "name:$name, address:$address, offer:$offer")
+        Log.w("MainActivity", "From Deliver Activity" + db.getEmail(name, address, offer))
         db.deleteData(name, address, offer)
         home.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)

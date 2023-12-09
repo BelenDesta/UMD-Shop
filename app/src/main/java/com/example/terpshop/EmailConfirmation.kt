@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.Base64
 import java.util.Properties
 import javax.mail.Session
 import javax.mail.internet.InternetAddress
@@ -19,6 +18,8 @@ import javax.mail.Message
 import javax.mail.MessagingException
 import javax.mail.PasswordAuthentication
 import javax.mail.Transport
+
+
 class EmailConfirmation {
     private var context: Context
     private lateinit var name : String
@@ -26,18 +27,19 @@ class EmailConfirmation {
     private lateinit var phone : String
     private lateinit var email : String
     private lateinit var offer : String
-    private lateinit var items : String
+    private lateinit var items : ArrayList<ItemData?>
     private lateinit var emailSubject : String
     private lateinit var emailContentHtml : String
-   constructor(context: Context, name: String, address: String, phone: String,
-               email: String, offer: String, items: String, emailSubject: String, emailContentHtml: String) {
+   constructor(
+       context: Context, name: String, address: String, phone: String,
+       email: String, offer: String, items: ArrayList<ItemData?>, emailSubject: String, emailContentHtml: String) {
        this.context = context
        this.name = name
        this.address = address
        this.phone = phone
        this.email = email
        this.offer = offer
-       this.items = items
+       this.items = items!!
        this.emailSubject = emailSubject
        this.emailContentHtml = emailContentHtml
    }
@@ -63,7 +65,7 @@ class EmailConfirmation {
                     return PasswordAuthentication(userEmail, emailPassword)
                 }
             })
-        Log.w("Email", "email is inside: $email")
+        Log.w("MainActivty", "email is inside: $email")
 
         try {
             val message: Message = MimeMessage(session)
@@ -74,6 +76,7 @@ class EmailConfirmation {
             )
             message.subject = emailSubject
             message.setContent(emailContentHtml, "text/html")
+            Log.w("MainActivty", "emailContentHtml: $emailContentHtml")
 
             Transport.send(message)
             withContext(Dispatchers.Main) {

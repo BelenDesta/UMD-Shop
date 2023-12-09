@@ -1,25 +1,16 @@
 package com.example.terpshop
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.os.StrictMode
 import android.util.Log
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import org.w3c.dom.Text
-import java.util.Properties
-import javax.mail.Message
-import javax.mail.MessagingException
-import javax.mail.PasswordAuthentication
-import javax.mail.Session
-import javax.mail.Transport
-import javax.mail.internet.InternetAddress
-import javax.mail.internet.MimeMessage
+
+import java.io.Serializable
+
 
 class ConfirmationActivity: AppCompatActivity() {
     private lateinit var goback : Button
@@ -30,6 +21,7 @@ class ConfirmationActivity: AppCompatActivity() {
     private lateinit var tv3 : TextView
 
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.confirmation_data)
@@ -41,32 +33,56 @@ class ConfirmationActivity: AppCompatActivity() {
         tv2 = findViewById(R.id.customerNameAndAddy)
         tv3 = findViewById(R.id.price)
 
-        val items = intent.getStringExtra("itemName")
+
+        val fullList = intent.getSerializableExtra("FullList", ArrayList::class.java) as? ArrayList<ItemData>
+
+        Log.w("MainActivity", "Recived  from Contact activity to confirm " + fullList)
+
+
+
         val customerName = intent.getStringExtra("name")
         val customerAddress = intent.getStringExtra("address")
         val customerPhone = intent.getStringExtra("phone")
         val customerEmail = intent.getStringExtra("email")
         val customerOffer = intent.getStringExtra("offer")
+        val items = intent.getStringArrayListExtra("itemNames")
 
-        tv1.text = "Items to be delivered : $items"
-        tv2.text = "Delivering to $customerName at the following Address : $customerAddress"
-        tv3.text = "Willing to pay $customerOffer for delivery"
-        // update the price accordingly
+        tv1.text = " $items"
+        tv2.text = "Name: $customerName \n Address : $customerAddress"
+        tv3.text = "Delivery Fee: $customerOffer "
 
         goback.setOnClickListener {
             val intent = Intent(this, ContactInfoActivity::class.java)
-            startActivity(intent)
-        }
-
-        submit.setOnClickListener {
-            val intent = Intent(this, EmailConfirmationActivity::class.java)
             intent.putExtra("name", customerName)
             intent.putExtra("address", customerAddress)
             intent.putExtra("phone", customerPhone)
             intent.putExtra("email", customerEmail)
             intent.putExtra("offer", customerOffer)
-            intent.putExtra("itemName", items)
+            intent.putExtra("itemNames", items)
+            intent.putExtra("FullList", fullList as Serializable)
+
+            Log.w("MainActivity", "Sent back  from confrim activity to contact " + fullList)
+
+
+
+            startActivity(intent)
+        }
+
+        submit.setOnClickListener {
+            Log.w("MainActivity", "Submit is Clicked")
+            val intent = Intent(this, EmailConfirmationActivity::class.java)
+
+
+            intent.putExtra("name", customerName)
+            intent.putExtra("address", customerAddress)
+            intent.putExtra("phone", customerPhone)
+            intent.putExtra("email", customerEmail)
+            intent.putExtra("offer", customerOffer)
+            intent.putExtra("FullList", fullList as Serializable)
+            Log.w("MainActivity", "Submit is clicked and sending to email" + fullList)
+
             startActivity(intent)
         }
     }
 }
+

@@ -5,19 +5,31 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class BrowseShopActivity : AppCompatActivity() {
     private lateinit var continueBtn: Button
     private lateinit var shopSpinner: Spinner
+    private lateinit var welcome: TextView
+    private lateinit var rate_experince: Button
+    private lateinit var logout : Button
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.shops_data) // the second page
 
+        val fullname = intent.getStringExtra("fullname")!!
         continueBtn = findViewById(R.id.continueBtn1)
         shopSpinner = findViewById(R.id.shopSpinner)
+        rate_experince = findViewById(R.id.rateExperienceBtn)
+        logout = findViewById(R.id.Logout)
+
+        welcome = findViewById(R.id.welcometext)
+        welcome.text = "Welcome $fullname"
 
         // Define an array of shops
         val shops = arrayOf(
@@ -50,5 +62,17 @@ class BrowseShopActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Please select a shop", Toast.LENGTH_SHORT).show()
             }
         }
+
+        rate_experince.setOnClickListener {
+            val intent = Intent(this, RatingActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        logout.setOnClickListener {
+            val intent = Intent(this, BecomeUserActvity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

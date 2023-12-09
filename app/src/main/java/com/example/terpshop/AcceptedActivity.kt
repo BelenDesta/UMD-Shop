@@ -4,8 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import java.io.Serializable
+
 import android.widget.CheckBox
+import android.widget.TableLayout
+import android.widget.TableRow
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -21,36 +26,59 @@ class AcceptedActivity: AppCompatActivity() {
     private lateinit var tv1 : TextView
     private lateinit var tv2 : TextView
     private lateinit var emailConfirmation: EmailConfirmation
-
+    private lateinit var db: QueueDB
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.acceptedsucc_data)
+        db = QueueDB(this)
+
 
         checked = findViewById(R.id.checkbox)
         delivered = findViewById(R.id.deliverButton)
 
-        tv1 = findViewById(R.id.success)
         tv2 = findViewById(R.id.customerNameAndAddsAndOffers)
 
-        val items = intent.getStringExtra("item")!!
+        val items = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("FullList", ArrayList::class.java) as? ArrayList<ItemData>
+        } else {
+            TODO("VERSION.SDK_INT < TIRAMISU")
+        }
+        //Item is not Null
+        Log.w("MainAct", "Items at Accepted Activity" + items)
+
+
         val customerName = intent.getStringExtra("name")!!
         val customerAddress = intent.getStringExtra("address")!!
         val customerPhone = intent.getStringExtra("phone")!!
         val customerEmail = intent.getStringExtra("email")!!
         val customerOffer = intent.getStringExtra("offer")!!
-        val customerItem = intent.getStringExtra("item")!!
         val driverFullname = intent.getStringExtra("fullname")!!
         val estimateTime = intent.getStringExtra("estimateTime")!!
 
         val nameArr = customerName.split(":")
         val name = nameArr[1]
 
-        tv1.text = "Success! You have accepted $name's order."
-        tv2.text = "Delivering item: $items \n At the following $customerAddress \n with this $customerOffer " +
-                "\n Contact the customer with: $customerPhone "
+
+        tv2.text = " $customerName \n $customerAddress \n  $customerOffer " +
+                "\n Phone Number : $customerPhone "
+
+        val itemListTextView: TextView = findViewById(R.id.itemListTextView)
+
+          // Dynamically set text for each item
+        if (items != null) {
+            val itemListStringBuilder = StringBuilder()
+            for (item in items) {
+                itemListStringBuilder.append("Category: ${item?.category ?: ""}\n")
+                itemListStringBuilder.append("Name: ${item?.name ?: ""}\n")
+                itemListStringBuilder.append("Details: ${item?.details ?: ""}\n")
+                itemListStringBuilder.append("Relevance: ${item?.relevance ?: ""}\n\n")
+            }
+            itemListTextView.text = itemListStringBuilder.toString()
+        }
 
 
         var emailSubject = "Your order is on the way"
@@ -60,7 +88,7 @@ class AcceptedActivity: AppCompatActivity() {
 
         val base64Image = Base64.getEncoder().encodeToString(imageBytes)
 
-        val emailContentHtml =
+        var emailContentHtml =
             "<html><body style='font-family: Arial, sans-serif;'>" +
                     "<div style='text-align: center;'>" +
                     "<img src='data:image/png;base64,$base64Image' alt='Header' style='max-width: 100%; height: auto;'>" +
@@ -77,13 +105,19 @@ class AcceptedActivity: AppCompatActivity() {
                     "<p><strong> Phone:</strong> $customerPhone</p>" +
                     "<p><strong> Email Address:</strong> $customerEmail</p>" +
                     "<p><strong> Delivery Offer:</strong> $customerOffer</p>" +
-                    "<p><strong> Item Detail:</strong> $items</p>" +
-                    "</div>" +
-                    "</body></html>"
+                    "<p><strong> Item Details:</strong></p>" +
+                    "<ul>"
+
+        for (item in items!!) {
+            emailContentHtml += "<li><strong>Name:</strong> ${item!!.name}, " +
+                    "<strong>Category:</strong> ${item!!.category}, " +
+                    "<strong>Details:</strong> ${item!!.details}, " +
+                    "<strong>Relevance:</strong> ${item!!.relevance}</li>"
+        }
 
 
-        emailConfirmation = EmailConfirmation(this, customerName, customerAddress, customerPhone, customerEmail, customerOffer, items, emailSubject, emailContentHtml)
-
+        emailConfirmation = EmailConfirmation(this, customerName, customerAddress, customerPhone, customerEmail, customerOffer, items as ArrayList<ItemData?>, emailSubject, emailContentHtml)
+        Log.w("MainAc" , "Here or not here?:"+  db.getItem(name, customerAddress , customerOffer))
         GlobalScope.launch(Dispatchers.IO) {
 
             try {
@@ -99,7 +133,9 @@ class AcceptedActivity: AppCompatActivity() {
                 intent.putExtra("name", customerName)
                 intent.putExtra("address", customerAddress)
                 intent.putExtra("offer", customerOffer)
-                intent.putExtra("item",customerItem)
+
+                intent.putExtra("FullList", items as Serializable)
+
                 intent.putExtra("email", customerEmail)
                 intent.putExtra("phone", customerPhone)
                 intent.putExtra("fullname", driverFullname)
