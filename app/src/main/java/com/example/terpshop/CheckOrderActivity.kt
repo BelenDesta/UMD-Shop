@@ -71,7 +71,7 @@ class CheckOrderActivity : AppCompatActivity() {
                     Log.w("CheckOrderActivity", "Status: $storedStatus")
 
                     if (storedConfirmationNum == confiNum) {
-                        showToast("Information matched. Proceed to the next step.")
+                        showToastValid("Information matched. Proceed to the next step.")
                         val intent = Intent(this@CheckOrderActivity, OrderStatusActivity::class.java)
                         intent.putExtra("status", storedStatus)
                         startActivity(intent)
@@ -90,6 +90,12 @@ class CheckOrderActivity : AppCompatActivity() {
 
 
     private fun showToast(message: String) {
-        Toast.makeText(applicationContext, "Invalid Input, $message", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "Invalid Input. , $message", Toast.LENGTH_SHORT).show()
     }
+
+    private fun showToastValid(message: String) {
+        Toast.makeText(applicationContext, "Valid Input. , $message", Toast.LENGTH_SHORT).show()
+    }
+
+
 }
