@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "302888430734",
+    "project_id": "terpshop-ea389",
+    "storage_bucket": "terpshop-ea389.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:302888430734:android:7ac7978c58d1f299c82ddf",
+        "android_client_info": {
+          "package_name": "com.example.terpshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe5U4MfOk_2KqfaymXk-mrsjmQffXXYvs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

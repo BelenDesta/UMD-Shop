@@ -34,7 +34,7 @@ class ConfirmationActivity: AppCompatActivity() {
         tv3 = findViewById(R.id.price)
 
 
-        val fullList = intent.getSerializableExtra("FullList", ArrayList::class.java) as? ArrayList<ItemData>
+        val fullList = intent.getSerializableExtra("FullList") as? ArrayList<ItemData>
 
         Log.w("MainActivity", "Recived  from Contact activity to confirm " + fullList)
 
@@ -45,9 +45,14 @@ class ConfirmationActivity: AppCompatActivity() {
         val customerPhone = intent.getStringExtra("phone")
         val customerEmail = intent.getStringExtra("email")
         val customerOffer = intent.getStringExtra("offer")
-        val items = intent.getStringArrayListExtra("itemNames")
+        val items = intent.getStringArrayListExtra("itemNames")!!
+        var itm =""
 
-        tv1.text = " $items"
+        for (item in items){
+            itm += item + "\n"
+        }
+
+        tv1.text = "Items: $itm"
         tv2.text = "Name: $customerName \n Address : $customerAddress"
         tv3.text = "Delivery Fee: $customerOffer "
 

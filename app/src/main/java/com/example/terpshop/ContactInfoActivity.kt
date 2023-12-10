@@ -42,7 +42,7 @@ class ContactInfoActivity : AppCompatActivity() {
         val customerEmail = intentFromConfirmation.getStringExtra("email")
         val customerOffer = intentFromConfirmation.getStringExtra("offer")
         val items = intentFromConfirmation.getStringArrayListExtra("itemNames")
-        val fullList = intent.getSerializableExtra("FullList", ArrayList::class.java) as? ArrayList<ItemData>
+        val fullList = intent.getSerializableExtra("FullList") as? ArrayList<ItemData>
 
         Log.w("MainActivity", "Received from shopping activity to contact " + fullList)
 

@@ -44,10 +44,6 @@ class RatingActivity : AppCompatActivity() {
             }
         })
 
-
-
-
-
         experienceRatingBar = findViewById(R.id.experienceRatingBar)
         submitRatingBtn = findViewById(R.id.submitRatingBtn)
         reviewCommentEditText = findViewById(R.id.reviewCommentEditText)

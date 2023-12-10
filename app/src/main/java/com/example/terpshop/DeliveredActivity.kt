@@ -13,12 +13,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.Base64
+import com.example.terpshop.ItemData
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
+
 
 class DeliveredActivity: AppCompatActivity() {
     private lateinit var tv: TextView
     private lateinit var emailConfirmation: EmailConfirmation
     private lateinit var home: Button
     private lateinit var db: QueueDB
+    private lateinit var rateExperince: Button
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("MissingInflatedId", "ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,13 +36,15 @@ class DeliveredActivity: AppCompatActivity() {
         setContentView(R.layout.delivered_data)
 
         home = findViewById(R.id.homeB)
+        rateExperince = findViewById(R.id.rateExperienceBtn2)
         db = QueueDB(this)
 
-        val items = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra("FullList", ArrayList::class.java) as? ArrayList<ItemData>
+        val items = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            intent.getSerializableExtra("FullList") as? ArrayList<ItemData>
         } else {
-            TODO("VERSION.SDK_INT < TIRAMISU")
+            TODO("VERSION.SDK_INT < R")
         }
+
         val customerName = intent.getStringExtra("name")!!
         val customerAddress = intent.getStringExtra("address")!!
         val customerPhone = intent.getStringExtra("phone")!!
@@ -50,6 +62,38 @@ class DeliveredActivity: AppCompatActivity() {
 
         tv = findViewById(R.id.succ)
         tv.text = "Success! You have Delivered $name's Order"
+
+        val currentDateTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("EEEE MMM yyyy hh:mm:ss a", Locale.ENGLISH)
+        val formattedDateTime = currentDateTime.format(formatter)
+
+        val newStatus = "Your order has been delivered by $driverFullname on $formattedDateTime"
+
+        val reference = FirebaseDatabase.getInstance().getReference("customers")
+
+        reference.child(name.trim()).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val customerData = dataSnapshot.getValue(Customer::class.java)
+                if (customerData != null) {
+                    Log.w("UpdateStatus", "Status before updated: " + customerData.status)
+                    val updateMap = mapOf("status" to newStatus)
+                    reference.child(name.trim()).updateChildren(updateMap)
+                        .addOnSuccessListener {
+                            Log.w("UpdateStatus", "Status updated successfully:" + customerData.status )
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("UpdateStatus", "Error updating status: $e")
+                        }
+                } else {
+                    Log.w("UpdateStatus", "Customer does not exist")
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.e("UpdateStatus", "Database error: ${databaseError.message}")
+            }
+        })
+
 
         var emailSubject = "Your order has been delivered"
 
@@ -76,8 +120,8 @@ class DeliveredActivity: AppCompatActivity() {
                     "<p><strong> Item Details:</strong></p>" +
                     "<ul>"
 
-// Iterate over the items array and add each value to the list
-// Iterate over the items array and add each value to the list
+            // Iterate over the items array and add each value to the list
+            // Iterate over the items array and add each value to the list
         for (item in items.orEmpty()) {
             emailContentHtml += "<li><strong>Name:</strong> ${item!!.name}, " +
                     "<strong>Category:</strong> ${item!!.category}, " +
@@ -101,6 +145,12 @@ class DeliveredActivity: AppCompatActivity() {
         Log.w("name", "name:$name, address:$address, offer:$offer")
         Log.w("MainActivity", "From Deliver Activity" + db.getEmail(name, address, offer))
         db.deleteData(name, address, offer)
+
+        rateExperince.setOnClickListener {
+            val intent = Intent(this, RatingActivity::class.java)
+            startActivity(intent)
+        }
+
         home.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

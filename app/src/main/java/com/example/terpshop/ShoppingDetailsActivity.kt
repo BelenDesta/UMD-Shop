@@ -69,7 +69,7 @@ class ShoppingDetailsActivity : AppCompatActivity() {
         }
 
 
-        val fullListFromIntent = intent.getSerializableExtra("FullList", ArrayList::class.java) as? ArrayList<ItemData>
+        val fullListFromIntent = intent.getSerializableExtra("FullList") as? ArrayList<ItemData>
         if (fullListFromIntent != null) {
             full_List_of_items.clear()
             full_List_of_items.addAll(fullListFromIntent)

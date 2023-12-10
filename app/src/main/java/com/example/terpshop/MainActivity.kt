@@ -7,10 +7,16 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.annotation.RequiresApi
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.FirebaseDatabase
+
 class MainActivity : AppCompatActivity() {
     private lateinit var shopAsCustomer: Button
     private lateinit var becomeAShopper: Button
+    private lateinit var checkOrder : Button
     private lateinit var aboutUs: Button
+    private lateinit var fdb : FirebaseDatabase
+    private lateinit var rateUs: Button
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +26,16 @@ class MainActivity : AppCompatActivity() {
         shopAsCustomer = findViewById(R.id.customerBtn)
         becomeAShopper = findViewById(R.id.shopperBtn)
         aboutUs = findViewById(R.id.aboutUsBtn)
+        checkOrder = findViewById(R.id.orderStatBtn)
+        rateUs = findViewById(R.id.rateUsBtn)
+
+        FirebaseApp.initializeApp(this)
+        fdb = FirebaseDatabase.getInstance()
+
+        rateUs.setOnClickListener {
+            val intent = Intent(this, RatingActivity::class.java)
+            startActivityWithTransition(intent)
+        }
 
         aboutUs.setOnClickListener {
             val intent = Intent(this, AboutUsActivity::class.java)
@@ -34,6 +50,10 @@ class MainActivity : AppCompatActivity() {
 
         becomeAShopper.setOnClickListener {
             val intent = Intent(this, BecomeShopperActivity::class.java)
+            startActivityWithTransition(intent)
+        }
+        checkOrder.setOnClickListener {
+            val intent = Intent(this, CheckOrderActivity::class.java)
             startActivityWithTransition(intent)
         }
     }

@@ -13,7 +13,6 @@ class BrowseShopActivity : AppCompatActivity() {
     private lateinit var continueBtn: Button
     private lateinit var shopSpinner: Spinner
     private lateinit var welcome: TextView
-    private lateinit var rate_experince: Button
     private lateinit var logout : Button
 
 
@@ -25,7 +24,6 @@ class BrowseShopActivity : AppCompatActivity() {
         val fullname = intent.getStringExtra("fullname")!!
         continueBtn = findViewById(R.id.continueBtn1)
         shopSpinner = findViewById(R.id.shopSpinner)
-        rate_experince = findViewById(R.id.rateExperienceBtn)
         logout = findViewById(R.id.Logout)
 
         welcome = findViewById(R.id.welcometext)
@@ -61,11 +59,6 @@ class BrowseShopActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(applicationContext, "Please select a shop", Toast.LENGTH_SHORT).show()
             }
-        }
-
-        rate_experince.setOnClickListener {
-            val intent = Intent(this, RatingActivity::class.java)
-            startActivity(intent)
         }
 
 

@@ -28,7 +28,7 @@ class AcceptingActivity: AppCompatActivity() {
         tv = findViewById(R.id.customerNameAndAddsAndOffer)
         estimateTime = findViewById(R.id.estimateTime)
 
-        val items = intent.getSerializableExtra("FullList", ArrayList::class.java) as? ArrayList<ItemData>
+        val items = intent.getSerializableExtra("FullList") as? ArrayList<ItemData>
         val customerName = intent.getStringExtra("name")!!
         val customerAddress = intent.getStringExtra("address")!!
         val customerOffer = intent.getStringExtra("offer")!!

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/checkstat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "Check Your Order Status"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="40dp"
+        android:textSize="30dp"
+        android:fontFamily="sans-serif-black"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ordername"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:hint="order name"
+        android:layout_below="@id/checkstat"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="30dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emaInfo_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="15"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/confirmation_num"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:hint="confirmation number"
+        android:layout_below="@id/ordername"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="30dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/conf_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:ems="15"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/check_stat"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:text="Check Status"
+        android:backgroundTint="#F08F4967"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/confirmation_num"
+        android:layout_marginTop="70dp"/>
+
+</RelativeLayout>

@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.FirebaseDatabase
 
 
 class DisplayRatingsActivity : AppCompatActivity() {
@@ -29,6 +30,15 @@ class DisplayRatingsActivity : AppCompatActivity() {
         savedRatingTextView.text = "Saved Rating: $savedRating"
         savedReviewTextView.text = "Saved Review: $savedReview"
 
+        val databaseFirebase = FirebaseDatabase.getInstance()
+        val reference = databaseFirebase.getReference("ratings")
+
+        val ratingData = mapOf(
+            "rating" to savedRating,
+            "review" to savedReview
+        )
+
+        reference.setValue(ratingData)
 
         goBackHome.setOnClickListener {
             finish()

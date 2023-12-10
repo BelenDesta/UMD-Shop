@@ -36,12 +36,13 @@
         <activity android:name=".AcceptingActivity"/>
         <activity android:name=".BecomeShopperActivity"/>
         <activity android:name =".BecomeUserActvity"/>
-
+        <activity android:name=".CheckOrderActivity"/>
         <activity android:name=".BrowseShopActivity"/>
         <activity android:name=".ConfirmationActivity"/>
         <activity android:name=".ContactInfoActivity"/>
         <activity android:name =".DeliveredActivity"/>
         <activity android:name =".EmailConfirmationActivity"/>
+        <activity android:name =".OrderStatusActivity"/>
         <activity android:name=".QueueActivity"/>
         <activity android:name=".ShoppingDetailsActivity"/>
         <activity android:name=".SignUpActivity"/>

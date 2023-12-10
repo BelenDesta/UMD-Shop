@@ -39,8 +39,9 @@ class EmailConfirmationActivity: AppCompatActivity() {
         val imageBytes = this@EmailConfirmationActivity.resources.openRawResource(R.drawable.headerimg).readBytes()
 
 
-        val fullList = intent.getSerializableExtra("FullList", ArrayList::class.java) as? ArrayList<ItemData?>
+        val fullList = intent.getSerializableExtra("FullList") as? ArrayList<ItemData?>
 
+        val randomConfig = generateRandomConfig(10)
 
 
         Log.w("MainActivity", "LISTS3" + fullList)
@@ -56,6 +57,7 @@ class EmailConfirmationActivity: AppCompatActivity() {
                     "Thank you for your order!</p>" +
                     "</div>" +
                     "<div style='background-color: #A0EBF4; border: 2px solid #000; padding: 10px; margin: 20px; text-align: left;'>" +
+                    "<p><strong> Confirmation Number:</strong> $randomConfig</p>" +
                     "<p><strong> Name:</strong> $customerName</p>" +
                     "<p><strong> Phone:</strong> $customerPhone</p>" +
                     "<p><strong> Email Address:</strong> $customerEmail</p>" +
@@ -63,8 +65,8 @@ class EmailConfirmationActivity: AppCompatActivity() {
                     "<p><strong> Item Details:</strong></p>" +
                     "<ul>"
 
-// Iterate over the items array and add each value to the list
-// Iterate over the items array and add each value to the list
+             // Iterate over the items array and add each value to the list
+             // Iterate over the items array and add each value to the list
         for (item in fullList.orEmpty()) {
             emailContentHtml += "<li><strong>Name:</strong> ${item!!.name}, " +
                     "<strong>Category:</strong> ${item!!.category}, " +
@@ -94,6 +96,7 @@ class EmailConfirmationActivity: AppCompatActivity() {
                     Handler().postDelayed({
                         val intent =
                             Intent(this@EmailConfirmationActivity, SubmissionActivity::class.java)
+                        intent.putExtra("randomConfi" , randomConfig)
                         intent.putExtra("name", customerName)
                         intent.putExtra("address", customerAddress)
                         intent.putExtra("phone", customerPhone)
@@ -116,6 +119,12 @@ class EmailConfirmationActivity: AppCompatActivity() {
                 }
             }
         }
+    }
+    private fun generateRandomConfig(length: Int): String {
+        val allowedChar = ('A'..'Z') + ('0'..'9')
+        return (1..length)
+            .map { allowedChar.random() }
+            .joinToString("")
     }
 }
 

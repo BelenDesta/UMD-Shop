@@ -50,8 +50,8 @@ class EmailConfirmation {
 
     GlobalScope.launch {
 
-        val userEmail: String = "terpshopumd@gmail.com"
-        val emailPassword = "zsdq gpgc uuob xajx"
+        val userEmail: String = "umdterpshop@gmail.com"
+        val emailPassword = "vpbk fqng newe frxp"
 
         val property: Properties = Properties()
         property["mail.smtp.auth"] = "true"
