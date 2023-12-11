@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/header"/>
+
+    <TextView
+        android:id="@+id/txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:textStyle="bold"
+        android:textSize = "20dp"
+        android:layout_marginLeft="70dp"
+        android:text="Please Rate Our Service"/>
+    <TextView
+        android:id="@+id/scaletxt"
+        android:layout_width="401dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="8dp"
+        android:textStyle="bold"
+        android:text="On a scale of 1 to 10, how much would you recommend TerpShop?" />
+    <SeekBar
+        android:id="@+id/seekBarRating2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/scaletxt"
+        android:max="10" />
+
+    <EditText
+        android:id="@+id/reviewCommentEditText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/seekBarRating2"
+        android:layout_marginTop="20dp"
+        android:hint="Leave a review..."
+        android:inputType="textMultiLine"
+        android:gravity="start|top"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:minLines="3"
+        android:background="#A0EBF4"/>
+
+    <Button
+        android:id="@+id/submitRatingBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reviewCommentEditText2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="Submit Rating"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:backgroundTint="#FFEB3B"/>
+
+</RelativeLayout>

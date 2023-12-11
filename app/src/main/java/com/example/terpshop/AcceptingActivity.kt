@@ -38,7 +38,6 @@ class AcceptingActivity: AppCompatActivity() {
 
         tv.text = "Delivering to $customerName \n At the following $customerAddress \n with this $customerOffer"
 
-
         accept.setOnClickListener {
             if(estimateTime.text.isEmpty()){
                 Toast.makeText(applicationContext, "Please enter the estimated time", Toast.LENGTH_SHORT).show()

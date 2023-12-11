@@ -43,6 +43,8 @@
         <activity android:name =".EmailConfirmationActivity"/>
         <activity android:name =".OrderStatusActivity"/>
         <activity android:name=".QueueActivity"/>
+        <activity android:name=".RatingBarActivity"/>
+        <activity android:name=".SeekBarActivity"/>
         <activity android:name=".ShoppingDetailsActivity"/>
         <activity android:name=".SignUpActivity"/>
         <activity android:name=".SignUpActivityUser"/>

@@ -31,6 +31,7 @@ class AcceptedActivity: AppCompatActivity() {
     private lateinit var tv2 : TextView
     private lateinit var emailConfirmation: EmailConfirmation
     private lateinit var db: QueueDB
+    private lateinit var hbn : Button
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ResourceType")
@@ -43,6 +44,7 @@ class AcceptedActivity: AppCompatActivity() {
 
         checked = findViewById(R.id.checkbox)
         delivered = findViewById(R.id.deliverButton)
+        hbn = findViewById(R.id.homeBtn4)
 
         tv2 = findViewById(R.id.customerNameAndAddsAndOffers)
 
@@ -155,6 +157,11 @@ class AcceptedActivity: AppCompatActivity() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+
+        hbn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
 
         delivered.setOnClickListener {

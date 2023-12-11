@@ -57,7 +57,7 @@ class SubmissionActivity: AppCompatActivity() {
         Log.w("MainActivity" , "Items Before stored in the database: + $items")
 
         rateExperince.setOnClickListener {
-            val intent = Intent(this, RatingActivity::class.java)
+            val intent = Intent(this, RatingBarActivity::class.java)
             startActivity(intent)
         }
 

@@ -147,7 +147,7 @@ class DeliveredActivity: AppCompatActivity() {
         db.deleteData(name, address, offer)
 
         rateExperince.setOnClickListener {
-            val intent = Intent(this, RatingActivity::class.java)
+            val intent = Intent(this, SeekBarActivity::class.java)
             startActivity(intent)
         }
 

@@ -30,14 +30,14 @@ class DisplayRatingsActivity : AppCompatActivity() {
         savedRatingTextView.text = "Saved Rating: $savedRating"
         savedReviewTextView.text = "Saved Review: $savedReview"
 
+        val key = "customer rating"
         val databaseFirebase = FirebaseDatabase.getInstance()
-        val reference = databaseFirebase.getReference("ratings")
+        val reference = databaseFirebase.getReference("ratings").child(key)
 
         val ratingData = mapOf(
             "rating" to savedRating,
             "review" to savedReview
         )
-
         reference.setValue(ratingData)
 
         goBackHome.setOnClickListener {
